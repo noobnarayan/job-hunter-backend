@@ -11,15 +11,8 @@ const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
 
 // Testing endpoints
-const ping = async (req, res) => {
-  try {
-    const response = await generateJobDescription({ Company: "Google" });
-    res.send(response);
-  } catch (error) {
-    console.log(error);
-    res.send(error);
-  }
-  // res.send({ msg: "API is healthy!" });
+const ping = (req, res) => {
+  res.send({ msg: "API is healthy!" });
 };
 const authPing = (req, res) => {
   res.send("Job Auth is working");
