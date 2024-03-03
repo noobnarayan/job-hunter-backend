@@ -22,7 +22,6 @@ app.use(cookieParser());
 import userRouter from "./routes/user.routes.js";
 import jobRouter from "./routes/jobs.routes.js";
 import companyRouter from "./routes/company.routes.js";
-import { PRODUCTION_URL } from "./constants.js";
 // routes declearation
 
 app.use("/api/v1/users", userRouter);
