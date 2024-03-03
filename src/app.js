@@ -1,13 +1,13 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import { PRODUCTION_URL } from "./constants.js";
 export const app = express();
 app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "your-production-url"
+        ? `${PRODUCTION_URL}`
         : "http://localhost:5173",
     credentials: true,
   })
@@ -22,6 +22,7 @@ app.use(cookieParser());
 import userRouter from "./routes/user.routes.js";
 import jobRouter from "./routes/jobs.routes.js";
 import companyRouter from "./routes/company.routes.js";
+import { PRODUCTION_URL } from "./constants.js";
 // routes declearation
 
 app.use("/api/v1/users", userRouter);
