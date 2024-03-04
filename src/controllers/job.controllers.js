@@ -316,9 +316,12 @@ const saveJob = asyncHandler(async (req, res) => {
       .status(200)
       .json(new ApiResponse(200, {}, "Saved the job successfully"));
   } catch (error) {
-    throw new ApiError(
-      500,
-      `An error occurred while saving the job : Error::${error}`
+    return res.status(500).json(
+      // new ApiError(
+      //   500,
+      //   `An error occurred while saving the job : Error::${error}`
+      // )
+      error
     );
   }
 });
