@@ -305,7 +305,8 @@ const saveJob = asyncHandler(async (req, res) => {
         (job) => job.toString() === jobId.toString()
       )
     ) {
-      throw new ApiError(400, "Job is already saved");
+      return res.status(400).json({ msg: "Job is already saved" });
+      // throw new ApiError(400, "Job is already saved");
     }
 
     user.userProfile.savedJobs.push(jobId);
