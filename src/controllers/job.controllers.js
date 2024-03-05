@@ -297,30 +297,23 @@ const saveJob = asyncHandler(async (req, res) => {
   if (role !== "jobSeeker") {
     throw new ApiError(403, "Only employers are authorized to save a job");
   }
-  try {
-    const user = await User.findById(_id);
-    console.log(user.userProfile.savedJobs);
-    if (
-      user.userProfile.savedJobs.some(
-        (job) => job.toString() === jobId.toString()
-      )
-    ) {
-      throw new ApiError(400, "Job is already saved");
-    }
 
-    user.userProfile.savedJobs.push(jobId);
-    user.markModified("userProfile.savedJobs");
-    await user.save();
-
-    return res
-      .status(200)
-      .json(new ApiResponse(200, {}, "Saved the job successfully"));
-  } catch (error) {
-    throw new ApiError(
-      500,
-      `An error occurred while saving the job : Error::${error}`
-    );
+  const user = await User.findById(_id);
+  if (
+    user.userProfile.savedJobs.some(
+      (job) => job.toString() === jobId.toString()
+    )
+  ) {
+    throw new ApiError(400, "Job is already saved");
   }
+
+  user.userProfile.savedJobs.push(jobId);
+  user.markModified("userProfile.savedJobs");
+  await user.save();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Saved the job successfully"));
 });
 
 const getJobLocations = asyncHandler(async (req, res) => {
